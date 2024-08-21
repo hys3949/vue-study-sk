@@ -1,40 +1,27 @@
 <template>
   <div id="app">
-    <h1>{{ message }}</h1>
-    <p v-if="isVisable">
-      This paragraph is conditionally rendered.
-    </p>
-    <ul>
-      <li v-for="item in items" :key="item">{{ item }}</li>
-    </ul>
-    <MyComponent title="My Custom Component" @message="handleMessage"></MyComponent>
+    <h1>Router Test</h1>
+    <nav>
+      <router-link to="/">Home</router-link>
+      &nbsp;
+      <router-link to="/A">PageA</router-link>
+      &nbsp;
+      <router-link to="/B">PageB</router-link>
+    </nav>
+    <button type="button" @click="moveToHome()">home으로 이동</button>
+    <!-- 라우터 뷰 (컴포넌트) -->
+  <router-view :blogData="blogData"></router-view>
+
   </div>
 </template>
 
-<script>
-import MyComponent from './components/MyComponent.vue';
 
+<script>
 export default {
-  data() {
-    return {
-      message: 'Hello, Vue.js!',
-      isVisable : true,
-      items : ['Item 1', 'Item 2', 'Item 3']
-    };
-  },
-  components: {
-    MyComponent
-  },
-  methods: {
-    handleMessage(payload){
-      alert(payload);
+  methods:{
+    moveToHome(){
+      this.$router.push("/");
     }
   }
 };
 </script>
-
-<style>
-#app {
-
-}
-</style>
