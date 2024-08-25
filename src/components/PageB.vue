@@ -3,39 +3,54 @@
         <h1>{{ PageTitle }}</h1>
 
         <div>
-            <span> count : </span>
-            {{ curentCount }}
+            <span> curentCount : </span>
+            {{ curentCountB }}
+            <div>
+                <button class="btn" type="button" @click="AddCount()">+</button>
+                <button class="btn" type="button" @click="MinusCount()">-</button>
+            </div>
         </div>
         <div>
-            <button class="btn" type="button" @click="AddCount()">+</button>
-            <button class="btn" type="button" @click="MinusCount()">-</button>
-            <button @click="increment">increment</button>
+            <span> store count : </span>
+            {{ count }}
+            <div>
+                <button @click="increment">increment</button>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    // import { mapGetters, mapActions } from 'vuex';
+    import { mapState, mapGetters, mapActions, createNamespacedHelpers } from 'vuex';
+
+    const countHelper = createNamespacedHelpers("PageB");
 
     export default{
         data() {
             return {
                 PageTitle : "Page B",
-                curentCount : 0 // default 0
+                curentCountB : 0, // default 0
+                
             };
         },
-        // computed: {
-        //     ...mapGetters(['curentCount'])
-        // },
+        computed: {
+            ...countHelper.mapState(["pageBCount"]),
+            ...mapState(['COMM_COUNT']),
+            ...mapGetters(['count']),
+            
+            
+        },
         methods: {
             AddCount(){
-                this.curentCount++;
+                this.curentCountB++;
             },
             MinusCount(){
-                this.curentCount--;
+                this.curentCountB--;
             },
-            // ...mapActions(['increment']),
+            ...mapActions(['increment']),
+            
 
         },
+        
     }
 </script>
